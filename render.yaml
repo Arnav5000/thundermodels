@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: thunder-models
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: MODEL_DIR
+        value: /var/data/models
+      - key: MODEL_REPO_ID
+        value: bartowski/Llama-3.2-1B-Instruct-GGUF
+      - key: MODEL_FILENAME
+        value: Llama-3.2-1B-Instruct-Q4_K_M.gguf
+      - key: MODEL_API_KEY
+        sync: false
+    disk:
+      name: thunder-model-store
+      mountPath: /var/data
+      sizeGB: 2

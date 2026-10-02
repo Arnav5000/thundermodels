@@ -2,6 +2,8 @@
 
 Small Render-ready model gateway for Thunder AI CRM. It exposes an OpenAI-compatible chat endpoint while keeping model management separate from the CRM application.
 
+The Docker image installs the official pre-built CPU wheel for `llama-cpp-python`; it does not compile the native runtime during the Render build. This keeps the build within Render's memory limit. The service still runs on CPU and remains compatible with the same GGUF model API.
+
 ## Why this model
 
 The default is `bartowski/Llama-3.2-1B-Instruct-GGUF` with `Llama-3.2-1B-Instruct-Q4_K_M.gguf`. It is an instruction/chat model and is a better fit for the assistant than `all-MiniLM-L6-v2`, which is an embedding model. TinyLlama can be selected without code changes:

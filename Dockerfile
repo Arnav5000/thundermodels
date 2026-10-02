@@ -4,13 +4,12 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential cmake \
-    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN python -m pip install --upgrade pip \
+    && python -m pip install --only-binary=llama-cpp-python \
+       --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu \
+       -r requirements.txt
 
 COPY app ./app
 RUN mkdir -p /var/data/models
